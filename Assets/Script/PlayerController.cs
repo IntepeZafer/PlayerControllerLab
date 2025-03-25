@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f; // Yer�ekimi etkisi
     public Transform playerCamera;
     private float rotationX = 0f;
+    public float zBound;
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -54,6 +55,15 @@ public class PlayerController : MonoBehaviour
         if (!isGrounded)
         {
             rb.AddForce(Vector3.up * gravity, ForceMode.Acceleration);  // Yer�ekimi etkisi uygula
+        }
+
+        if(transform.position.z < zBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zBound);
+        }
+        if(transform.position.z > zBound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zBound);
         }
     }
 }
